@@ -1,0 +1,35 @@
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+   name: ankitns
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: springbootpod
+  labels:
+    app: springbootapp #very imp
+  namespace: ankitns
+spec:
+  containers:
+  - name: springbootappcontainer
+    image: ankitraj87/springboot
+
+    ports:
+      - containerPort: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springbootappsvc
+  namespace: ankitns
+spec:
+  type: LoadBalancer
+  selector:
+    app: springbootapp  #POD label
+  ports:
+    - port: 80
+      targetPort: 9090
+...
